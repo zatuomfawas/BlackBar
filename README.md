@@ -25,7 +25,7 @@ You can confirm this in under a minute:
 |---|---|---|
 | The screenshot you just took | IndexedDB, inside the extension's own storage | Deleted the moment the editor opens it; anything orphaned is swept after 5 minutes |
 | Your settings | `chrome.storage.local` on your device | Until you remove the extension |
-| Your licence key, if you buy Pro | `chrome.storage.local` on your device | Until you remove it |
+| Your licence key | `chrome.storage.local` on your device | Until you remove it |
 | Exported images | Wherever you choose to save them | Your files, your disk |
 
 Nothing syncs. There is no account to create and no server to hold anything.
@@ -45,13 +45,6 @@ Nothing syncs. There is no account to create and no server to hold anything.
 Blackbar requests no host permissions, no history, no cookies, no downloads
 permission, and no identity.
 
-## Payments
-
-If you buy Pro, the transaction is handled by our checkout provider, who acts as
-the merchant of record and is the party that receives your payment and billing
-details under their own privacy policy. We receive an order reference. Your
-licence key is verified mathematically on your device, offline — buying Pro does
-not create an account and does not cause the extension to contact anyone.
 
 ## Changes
 
