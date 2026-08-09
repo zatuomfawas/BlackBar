@@ -1,0 +1,16 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # No install step. There are no dependencies, which is the point.
+      - name: Detection rules
+        run: node test/detectors.test.mjs
+      - name: Trust guarantees
+        run: node test/no-network.test.mjs
