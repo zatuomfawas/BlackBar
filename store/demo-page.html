@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Northwind Support — Account #48213</title>
+<style>
+  :root { --ink:#1a1d24; --mute:#6b7280; --line:#e5e7eb; --bg:#f7f8fa; --brand:#2f5bd7; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font:14px/1.5 -apple-system,"Segoe UI",Roboto,sans-serif; }
+  header { display:flex; align-items:center; gap:14px; padding:14px 28px;
+           background:#fff; border-bottom:1px solid var(--line); }
+  .logo { width:26px; height:26px; border-radius:6px; background:var(--brand); }
+  header h1 { font-size:15px; margin:0; font-weight:600; }
+  header .who { margin-left:auto; color:var(--mute); font-size:13px; }
+  main { max-width:1120px; margin:0 auto; padding:24px 28px; display:grid;
+         grid-template-columns:1.35fr 1fr; gap:20px; align-items:start; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:18px 20px; }
+  .card h2 { margin:0 0 14px; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--mute); font-weight:600; }
+  .row { display:grid; grid-template-columns:132px 1fr; padding:9px 0; border-bottom:1px solid #f1f2f4; }
+  .row:last-child { border-bottom:0; }
+  .row dt { color:var(--mute); font-size:13px; }
+  .row dd { margin:0; font-size:13.5px; }
+  dl { margin:0; }
+  code, .mono { font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace; font-size:12.5px; }
+  .key { display:block; padding:8px 10px; background:#f4f5f7; border:1px solid var(--line);
+         border-radius:6px; margin-bottom:8px; word-break:break-all; }
+  .tag { display:inline-block; padding:2px 8px; border-radius:20px; font-size:11px;
+         background:#e8f0fe; color:var(--brand); font-weight:600; }
+  .note { padding:11px 13px; background:#fffbeb; border:1px solid #fde68a;
+          border-radius:8px; font-size:13px; margin-bottom:12px; }
+  input { width:100%; padding:7px 9px; border:1px solid var(--line); border-radius:6px;
+          font:inherit; background:#fff; }
+  label { display:block; font-size:12px; color:var(--mute); margin:10px 0 4px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  td { padding:7px 0; border-bottom:1px solid #f1f2f4; }
+  td:last-child { text-align:right; color:var(--mute); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"></div>
+  <h1>Northwind Support Console</h1>
+  <span class="who">Signed in as agent.morris@northwind-support.com</span>
+</header>
+
+<main>
+  <div>
+    <div class="card" style="margin-bottom:20px">
+      <h2>Customer record <span class="tag">Priority</span></h2>
+      <dl>
+        <div class="row"><dt>Name</dt><dd>Helena Vasquez</dd></div>
+        <div class="row"><dt>Email</dt><dd>helena.vasquez@brightpath-legal.com</dd></div>
+        <div class="row"><dt>Phone</dt><dd>+1 (416) 555-0142</dd></div>
+        <div class="row"><dt>Billing address</dt><dd>250 Yonge Street, Suite 1400, Toronto</dd></div>
+        <div class="row"><dt>Postal code</dt><dd>M5B 2L7</dd></div>
+        <div class="row"><dt>Card on file</dt><dd class="mono">4242 4242 4242 4242 &nbsp;·&nbsp; exp 04/28</dd></div>
+        <div class="row"><dt>Backup card</dt><dd class="mono">5555 5555 5555 4444</dd></div>
+        <div class="row"><dt>Bank (EU entity)</dt><dd class="mono">GB82 WEST 1234 5698 7654 32</dd></div>
+        <div class="row"><dt>Last login IP</dt><dd class="mono">203.0.113.42</dd></div>
+      </dl>
+    </div>
+
+    <div class="card">
+      <h2>Ticket #48213 — "API calls failing since Tuesday"</h2>
+      <div class="note">
+        Customer pasted their production config into the chat. Escalating to engineering.
+      </div>
+      <code class="key" id="k-aws"></code>
+      <code class="key" id="k-stripe"></code>
+      <code class="key" id="k-db"></code>
+      <code class="key" id="k-gh"></code>
+    </div>
+  </div>
+
+  <div>
+    <div class="card" style="margin-bottom:20px">
+      <h2>Session</h2>
+      <label>Bearer token</label>
+      <code class="key" style="margin-top:4px" id="k-jwt"></code>
+      <label>Webhook endpoint</label>
+      <code class="key">https://hooks.northwind.io/v2/ingest?api_key=9f8a7b6c5d4e3f2a1b0c</code>
+    </div>
+
+    <div class="card" style="margin-bottom:20px">
+      <h2>Agent credentials</h2>
+      <div class="grid2">
+        <div>
+          <label for="u">Username</label>
+          <input id="u" value="agent.morris" readonly />
+        </div>
+        <div>
+          <label for="p">Vault password</label>
+          <input id="p" type="password" value="correct-horse-battery" readonly />
+        </div>
+      </div>
+      <label for="s">Support PIN</label>
+      <input id="s" value="SSN on file: 123-45-6789" readonly />
+    </div>
+
+    <div class="card">
+      <h2>Recent charges</h2>
+      <table>
+        <tr><td>Enterprise seat × 12</td><td>$1,440.00</td></tr>
+        <tr><td>Overage — API calls</td><td>$212.40</td></tr>
+        <tr><td>Support retainer</td><td>$500.00</td></tr>
+        <tr><td>Wallet refund</td><td class="mono" style="font-size:11px">0x71C7656EC7ab88b098defB751B7401B5f6d8976F</td></tr>
+      </table>
+    </div>
+  </div>
+</main>
+
+<script>
+/* These fixtures are assembled at runtime rather than written into the file.
+   The page exists to give Blackbar something to detect, so it is by nature full
+   of credential-shaped strings — which GitHub's push protection blocks, and
+   which every fork of this repository would inherit as security alerts.
+   Joining the parts here keeps the scanner quiet while the page still renders
+   exactly the same text for the extension to find. None of these are real. */
+const j = (...p) => p.join('');
+const fill = (id, text) => document.getElementById(id).textContent = text;
+
+fill('k-aws',    'AWS_ACCESS_KEY_ID=' + j('AKIA', 'IOSFODNN7EXAMPLE'));
+fill('k-stripe', 'STRIPE_SECRET=' + j('sk', '_live_', '4eC39HqLyjWDarjtT1zdp7dc'));
+fill('k-db',     'DATABASE_URL=' + j('postgres', '://admin:hunter2@db.northwind.internal:5432/main'));
+fill('k-gh',     'GITHUB_TOKEN=' + j('ghp', '_16C7e42F292c6912E7710c838347Ae178B4a'));
+fill('k-jwt',    j('eyJhbGciOiJIUzI1NiJ9', '.eyJzdWIiOiI0ODIxMyJ9',
+                   '.dBjftJeZ4CVPmB92K27uhbUJU1p1r_wW1gFWFOEjXk'));
+</script>
+
+</body>
+</html>

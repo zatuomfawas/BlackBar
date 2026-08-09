@@ -1,0 +1,381 @@
+/* Blackbar welcome.
+   ------------------------------------------------------------------
+   Laid out like a specimen sheet: a narrow monospaced gutter carrying
+   section numbers, a wide column carrying the argument, hairlines
+   between. The vernacular of a document that has been through review —
+   which is exactly what the product does to a screenshot.
+
+   Same rule as the editor: pure #000 is reserved. It appears on
+   redaction bars and nowhere else, so black always means hidden.
+   No webfonts, because a privacy tool has no business making requests.
+   ------------------------------------------------------------------ */
+
+:root {
+  --graphite: #1c1b19;
+  --mat: #141310;
+  --raise: #222018;
+  --line: #35322b;
+  --line-soft: #2a2721;
+  --bone: #ede9e0;
+  --text: #cfcabf;
+  --mute: #8e8a7e;
+  --dim: #6d6a61;
+  --signal: #f2c14e;
+  --safe: #8fb996;
+  --redact: #000000;
+
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, Helvetica, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --gutter: 92px;
+  --page: 880px;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--graphite);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- top bar ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 22px 28px;
+}
+
+.mark {
+  width: 26px;
+  height: 10px;
+  border-radius: 1px;
+  background: var(--redact);
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.wordmark {
+  font-size: 11.5px;
+  font-weight: 620;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bone);
+}
+
+.meta {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+main { max-width: var(--page); margin: 0 auto; padding: 0 28px; }
+
+/* ---------- hero ---------- */
+
+.hero { padding: 44px 0 56px; }
+
+.eyebrow {
+  margin: 0 0 20px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--safe);
+}
+
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: var(--safe);
+  vertical-align: middle;
+}
+
+h1 {
+  margin: 0 0 22px;
+  font-size: clamp(30px, 4.6vw, 46px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+  color: var(--bone);
+}
+
+h1 em { font-style: normal; color: var(--mute); }
+
+.lede {
+  max-width: 52ch;
+  margin: 0;
+  font-size: 16.5px;
+  color: var(--mute);
+}
+
+/* ---------- specimen (the signature element) ---------- */
+
+.specimen {
+  margin: 40px 0 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--mat);
+  overflow: hidden;
+}
+
+.specimen figcaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.specimen-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.specimen-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--signal);
+}
+
+.specimen dl { margin: 0; padding: 6px 20px 14px; }
+
+.specimen .row {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.specimen .row:last-child { border-bottom: 0; }
+
+.specimen dt {
+  font-size: 13px;
+  color: var(--dim);
+}
+
+.specimen dd { margin: 0; min-height: 19px; display: flex; align-items: center; }
+.specimen dd.plain { font-size: 14px; color: var(--text); }
+
+/* The whole product, in one element. */
+.bar {
+  display: block;
+  height: 17px;
+  border-radius: 1px;
+  background: var(--redact);
+  box-shadow: 0 1px 0 rgba(242, 193, 78, 0.55);
+}
+
+.found {
+  padding: 1px 6px;
+  border: 1px solid var(--signal);
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--signal);
+}
+
+.specimen-note {
+  margin: 0;
+  padding: 13px 20px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--dim);
+}
+
+/* ---------- numbered blocks ---------- */
+
+.block {
+  display: grid;
+  grid-template-columns: var(--gutter) 1fr;
+  gap: 0 24px;
+  padding: 38px 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.num {
+  margin: 3px 0 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--dim);
+}
+
+.body { max-width: 60ch; }
+
+h2 {
+  margin: 0 0 14px;
+  font-size: 21px;
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  font-weight: 600;
+  color: var(--bone);
+}
+
+.body p { margin: 0 0 14px; }
+.body p:last-child { margin-bottom: 0; }
+.body em { font-style: normal; color: var(--bone); }
+
+code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  color: var(--signal);
+}
+
+.fine { font-size: 13px; color: var(--dim); }
+
+/* ---------- shortcuts ---------- */
+
+.keys {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.keys li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--mat);
+  font-size: 14px;
+}
+
+.keys li:last-child { border-bottom: 0; }
+.keys li.pending { color: var(--dim); font-family: var(--mono); font-size: 12px; }
+
+.keys kbd {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--signal);
+  white-space: nowrap;
+}
+
+.keys li[data-unset="true"] { background: rgba(242, 193, 78, 0.05); }
+.keys li[data-unset="true"] kbd {
+  color: var(--graphite);
+  background: var(--signal);
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+.keys-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.keys-actions .fine { margin: 0; flex: 1 1 260px; }
+
+.btn {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--raise);
+  color: var(--bone);
+  font: inherit;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.btn:hover { background: #2b2820; }
+.btn:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+
+/* ---------- code block ---------- */
+
+.code {
+  margin: 0 0 18px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--mat);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--mute);
+  overflow-x: auto;
+}
+
+.code .c { color: var(--dim); }
+.code .hl { color: var(--signal); }
+
+.checks {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: var(--text);
+}
+
+.checks::marker { color: var(--dim); }
+
+/* ---------- footer ---------- */
+
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: var(--page);
+  margin: 0 auto;
+  padding: 24px 28px 60px;
+  border-top: 1px solid var(--line-soft);
+  margin-top: 20px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.chip::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--dim);
+}
+
+.chip[data-verified="true"] { color: var(--mute); }
+.chip[data-verified="true"]::before { background: var(--safe); }
+
+.link { color: var(--mute); font-size: 13.5px; text-decoration: none; }
+.link:hover { color: var(--bone); text-decoration: underline; }
+
+/* ---------- narrow ---------- */
+
+@media (max-width: 680px) {
+  .block { grid-template-columns: 1fr; gap: 8px; }
+  .num { margin-bottom: 2px; }
+  .specimen .row { grid-template-columns: 100px 1fr; gap: 12px; }
+}

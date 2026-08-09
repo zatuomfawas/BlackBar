@@ -1,0 +1,4 @@
+# The signing key for every licence ever sold. Never commit this.
+tools/private-key.pem
+*.zip
+.DS_Store

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="editor.css" />
+  <title>Blackbar</title>
+</head>
+<body>
+  <div class="app" id="app" data-loading="true">
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="mark" aria-hidden="true"></span>
+        <span class="wordmark">Blackbar</span>
+      </div>
+      <p class="source" id="source"></p>
+      <div class="actions">
+        <button class="btn" id="copy">Copy image</button>
+        <div class="split" id="exportSplit">
+          <button class="btn btn-primary" id="export">Save PNG</button>
+          <button class="btn btn-primary btn-caret" id="exportMenu" aria-label="More export options"
+                  aria-haspopup="menu" aria-expanded="false">
+            <svg viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none"
+              stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <menu class="dropdown" id="exportOptions" hidden>
+            <li><button data-format="image/png">Save as PNG</button></li>
+            <li><button data-format="image/jpeg">Save as JPEG</button></li>
+            <li><button data-format="clipboard">Copy to clipboard</button></li>
+          </menu>
+        </div>
+      </div>
+    </header>
+
+    <nav class="rail" id="rail" aria-label="Tools">
+      <button class="tool is-active" data-tool="redact" title="Black bar — 1">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="7" width="16" height="6" rx="1" fill="currentColor"/></svg>
+        <span class="sr">Black bar</span>
+      </button>
+      <button class="tool" data-tool="pixelate" title="Pixelate — 2">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><g fill="currentColor"><rect x="3" y="6" width="4" height="4"/><rect x="11" y="6" width="4" height="4"/><rect x="7" y="10" width="4" height="4"/><rect x="15" y="10" width="2" height="4"/><rect x="3" y="10" width="4" height="4" opacity=".45"/><rect x="11" y="10" width="4" height="4" opacity=".45"/><rect x="7" y="6" width="4" height="4" opacity=".45"/></g></svg>
+        <span class="sr">Pixelate</span>
+      </button>
+      <button class="tool" data-tool="blur" title="Blur — 3">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6" fill="currentColor" opacity=".3"/><circle cx="10" cy="10" r="3.5" fill="currentColor" opacity=".7"/></svg>
+        <span class="sr">Blur</span>
+      </button>
+      <hr class="rail-rule" />
+      <button class="tool" data-tool="box" title="Outline — 4">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3.5" y="4.5" width="13" height="11" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+        <span class="sr">Outline</span>
+      </button>
+      <button class="tool" data-tool="arrow" title="Arrow — 5">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16 L15 5 M15 5 L15 11 M15 5 L9 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span class="sr">Arrow</span>
+      </button>
+      <button class="tool" data-tool="highlight" title="Highlight — 6">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 13h14v4H3z" fill="currentColor" opacity=".45"/><path d="M6 3h8v9H6z" fill="currentColor"/></svg>
+        <span class="sr">Highlight</span>
+      </button>
+      <button class="tool" data-tool="text" title="Text — 7">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5h12M10 5v11" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+        <span class="sr">Text</span>
+      </button>
+      <hr class="rail-rule" />
+      <button class="tool" data-tool="crop" title="Crop — 8">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 2v12h12M2 6h12v12" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+        <span class="sr">Crop</span>
+      </button>
+      <div class="rail-spacer"></div>
+      <button class="tool" id="undo" title="Undo — ⌘Z" disabled>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 6L3 10l4 4M3 10h8a5 5 0 010 10H8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="sr">Undo</span>
+      </button>
+      <button class="tool" id="redo" title="Redo — ⌘⇧Z" disabled>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M13 6l4 4-4 4M17 10H9a5 5 0 000 10h3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="sr">Redo</span>
+      </button>
+    </nav>
+
+    <main class="mat" id="mat">
+      <div class="stage" id="stage">
+        <canvas id="canvas"></canvas>
+        <div class="markers" id="markers"></div>
+      </div>
+      <div class="dropzone" id="dropzone" hidden>
+        <span class="dropzone-mark" aria-hidden="true"></span>
+        <h2>Paste a screenshot</h2>
+        <p id="dropNote">Press <kbd>Ctrl</kbd> + <kbd>V</kbd>, or drop an image file anywhere on this page.</p>
+        <p class="dropzone-fine">Use this for anything Chrome won't let an extension capture — the New Tab page, Settings, the Web Store, another app, a PDF. Take the shot with your system screenshot key, then paste it here.</p>
+        <p class="dropzone-fine dropzone-caveat">Pasted images have no page behind them, so there's nothing for Blackbar to read. Detection stays off and you draw the bars yourself.</p>
+      </div>
+
+      <div class="loading" id="loading">
+        <span class="loading-bar"></span>
+        <p>Reading the page</p>
+      </div>
+    </main>
+
+    <aside class="ledger" id="ledger">
+      <header class="ledger-head">
+        <span class="eyebrow">Found</span>
+        <span class="count" id="count">0</span>
+      </header>
+
+      <p class="ledger-lede" id="lede">Everything sensitive is already covered. Uncover anything you want to keep.</p>
+
+      <div class="ledger-actions">
+        <button class="btn btn-wide" id="redactAll">Redact all</button>
+        <button class="btn btn-wide btn-quiet" id="revealAll">Reveal all</button>
+      </div>
+
+      <ul class="rows" id="rows"></ul>
+
+      <section class="unread" id="unread" hidden>
+        <span class="eyebrow">Couldn't read</span>
+        <p id="unreadText"></p>
+        <button class="btn btn-wide btn-quiet" id="coverUnread">Black these out</button>
+      </section>
+
+      <footer class="ledger-foot">
+        <label class="check" id="watermarkRow">
+          <input type="checkbox" id="watermark" checked />
+          <span>Add "Redacted with Blackbar" footer</span>
+        </label>
+        <button class="upsell" id="upsell" hidden>Remove with Pro →</button>
+      </footer>
+    </aside>
+
+    <footer class="statusbar">
+      <button class="chip" id="chip" title="Checking…">offline</button>
+      <span class="dim" id="dims"></span>
+      <span class="dim" id="safety"></span>
+      <span class="spacer"></span>
+      <span class="dim hint">Drag to redact · <kbd>⌘Z</kbd> undo · <kbd>⌘⏎</kbd> save</span>
+    </footer>
+  </div>
+
+  <dialog class="sheet" id="proSheet">
+    <h2>Blackbar Pro</h2>
+    <p class="sheet-lede">One payment. No account, no subscription, no server that could ever hold your images.</p>
+    <ul class="sheet-list">
+      <li>Automatic detection on every capture</li>
+      <li>Your own detection rules (customer IDs, case numbers, internal hostnames)</li>
+      <li>Batch redaction across a folder of images</li>
+      <li>No footer on exports</li>
+    </ul>
+    <div class="sheet-key">
+      <input id="licenseInput" placeholder="BB1.…" spellcheck="false" />
+      <button class="btn btn-primary" id="activate">Activate</button>
+    </div>
+    <p class="sheet-note" id="licenseNote"></p>
+    <button class="btn btn-quiet" id="closeSheet">Close</button>
+  </dialog>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script type="module" src="editor.js"></script>
+</body>
+</html>

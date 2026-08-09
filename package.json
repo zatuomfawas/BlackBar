@@ -1,0 +1,14 @@
+{
+  "name": "blackbar",
+  "version": "0.1.0",
+  "description": "Screenshot tool that blacks out secrets before you see the shot. No build step, no dependencies, no network.",
+  "private": true,
+  "type": "module",
+  "license": "GPL-3.0-only",
+  "scripts": {
+    "test": "node test/detectors.test.mjs && node test/text-op.test.mjs && node test/hidden-state.test.mjs && node test/no-network.test.mjs",
+    "test:detect": "node test/detectors.test.mjs",
+    "test:trust": "node test/no-network.test.mjs",
+    "package": "cd extension && zip -qr ../blackbar-$npm_package_version.zip . -x '*.DS_Store' && echo 'wrote blackbar-'$npm_package_version'.zip'"
+  }
+}

@@ -1,0 +1,163 @@
+:root {
+  --graphite: #1c1b19;
+  --raise: #262420;
+  --hover: #2f2c26;
+  --line: #3a362e;
+  --bone: #ede9e0;
+  --mute: #8e8a7e;
+  --signal: #f2c14e;
+  --safe: #8fb996;
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+/* The hidden attribute must win.
+   `[hidden] { display: none }` lives in the browser's own stylesheet, and ANY
+   author rule that sets `display` beats it — so `.dropzone { display: grid }`
+   silently made a hidden element permanently visible. This one line makes the
+   attribute authoritative for every element, now and in future. */
+[hidden] { display: none !important; }
+
+
+body {
+  width: 264px;
+  margin: 0;
+  padding: 12px;
+  background: var(--graphite);
+  color: var(--bone);
+  font-family: var(--sans);
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 4px 12px;
+}
+
+/* The mark is the product: a bar that covers something. */
+.mark {
+  width: 22px;
+  height: 9px;
+  background: #000;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px var(--line);
+}
+
+.wordmark {
+  font-size: 12px;
+  font-weight: 620;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.modes { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+
+.modes button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.modes button:hover { background: var(--hover); }
+.modes button:focus-visible { outline: 2px solid var(--signal); outline-offset: -2px; }
+.modes button[aria-busy="true"] { color: var(--mute); }
+
+kbd {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--mute);
+  letter-spacing: 0.04em;
+}
+
+.note {
+  margin: 12px 4px 10px;
+  color: var(--mute);
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.note[data-state="error"] { color: var(--signal); }
+
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.chip::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--safe);
+}
+
+.link { color: var(--mute); font-size: 11px; text-decoration: none; }
+.link:hover { color: var(--bone); text-decoration: underline; }
+
+.modes button:disabled { color: var(--mute); cursor: default; }
+.modes button:disabled:hover { background: transparent; }
+
+.paste {
+  width: 100%;
+  margin-top: 8px;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--raise);
+  color: var(--bone);
+  font: inherit;
+  font-size: 12.5px;
+  text-align: left;
+  cursor: pointer;
+}
+.paste:hover { background: var(--hover); }
+.paste:focus-visible { outline: 2px solid var(--signal); outline-offset: 1px; }
+
+.note[data-state="blocked"] { color: var(--signal); }
+
+kbd[data-unset="true"] { color: var(--signal); }
+
+.fixkeys {
+  width: 100%;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--signal);
+  font: inherit;
+  font-size: 11.5px;
+  text-align: left;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.fixkeys:hover { background: var(--hover); }
+.fixkeys:focus-visible { outline: 2px solid var(--signal); outline-offset: 1px; }

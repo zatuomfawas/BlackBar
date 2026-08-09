@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="welcome.css" />
+  <title>Blackbar — how it works</title>
+</head>
+<body>
+
+<header class="topbar">
+  <span class="mark" aria-hidden="true"></span>
+  <span class="wordmark">Blackbar</span>
+  <span class="meta" id="version"></span>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow">Installed</p>
+    <h1>Take the screenshot.<br /><em>The secrets are already covered.</em></h1>
+    <p class="lede">
+      Blackbar reads the page before it captures it, blacks out anything that looks
+      like a credential or a person's details, and hands you the safe version first.
+      You decide what to uncover.
+    </p>
+
+    <figure class="specimen" aria-label="Example capture with sensitive fields already covered">
+      <figcaption>
+        <span class="specimen-title">Customer record</span>
+        <span class="specimen-count">7 found</span>
+      </figcaption>
+      <dl>
+        <div class="row"><dt>Name</dt><dd class="plain">Helena Vasquez</dd></div>
+        <div class="row"><dt>Email</dt><dd><span class="bar" style="width:62%"></span></dd></div>
+        <div class="row"><dt>Card on file</dt><dd><span class="bar" style="width:48%"></span></dd></div>
+        <div class="row"><dt>IBAN</dt><dd><span class="bar" style="width:70%"></span></dd></div>
+        <div class="row"><dt>Last login IP</dt><dd><span class="found">203.0.113.42</span></dd></div>
+        <div class="row"><dt>API key</dt><dd><span class="bar" style="width:84%"></span></dd></div>
+      </dl>
+      <p class="specimen-note">
+        Names aren't detected — that's deliberate. The amber outline is a lower-risk
+        find, left visible for you to judge.
+      </p>
+    </figure>
+  </section>
+
+  <section class="block">
+    <p class="num">01</p>
+    <div class="body">
+      <h2>Try it</h2>
+      <p>These are the shortcuts actually bound on this machine — not the ones we asked for.</p>
+      <ul class="keys" id="keys"><li class="pending">Reading your shortcuts…</li></ul>
+      <div class="keys-actions">
+        <button class="btn" id="setKeys">Change shortcuts</button>
+        <p class="fine" id="keysNote"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <p class="num">02</p>
+    <div class="body">
+      <h2>Black bars only</h2>
+      <p>
+        Blur and pixelation are in the toolbar because people expect them, but neither is
+        redaction — pixelated text has been reconstructed by researchers for years, and
+        blur leaks more than it hides.
+      </p>
+      <p>
+        Only a black bar counts toward <em>clear</em> in the status line. Every export is
+        flattened, so a bar is deleted pixels rather than a layer someone can lift off, and
+        re-encoding drops the image metadata on the way out.
+      </p>
+    </div>
+  </section>
+
+  <section class="block">
+    <p class="num">03</p>
+    <div class="body">
+      <h2>Don't take our word for it</h2>
+      <pre class="code"><span class="c">// manifest.json</span>
+"content_security_policy": {
+  "extension_pages": <span class="hl">"connect-src 'none'"</span>
+}</pre>
+      <p>
+        Chrome itself refuses to let this extension open a connection. That isn't a promise
+        we're making, it's a rule enforced on us. Four ways to check it in under a minute:
+      </p>
+      <ol class="checks">
+        <li>Turn off your Wi-Fi. Everything still works.</li>
+        <li>Open DevTools → Network, then capture. Nothing appears.</li>
+        <li>Watch the status bar — the editor runs the test itself on every open.</li>
+        <li>Read the source. There's no build step, so the package is the repository.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block">
+    <p class="num">04</p>
+    <div class="body">
+      <h2>What it can't do</h2>
+      <p>
+        Chrome blocks every extension from reading its own pages, so nothing can capture the
+        New Tab page, Settings or the Web Store. Use your system screenshot key and paste the
+        image straight into the editor instead.
+      </p>
+      <p>
+        Blackbar reads text from the page, so it can't read text inside images, video or a
+        <code>&lt;canvas&gt;</code>. It flags those regions as unreadable rather than implying
+        they're clean. It doesn't detect faces, and it won't guess which words are someone's
+        name — a detector that's wrong half the time teaches you to ignore it.
+      </p>
+      <p class="fine">Treat detection as a second pair of eyes. Yours are still the first.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span class="chip" id="chip">checking…</span>
+  <a class="link" href="https://github.com/zatuomfawas/BlackBar" target="_blank" rel="noopener">Read the source</a>
+</footer>
+
+<script type="module" src="welcome.js"></script>
+</body>
+</html>

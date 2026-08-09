@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="popup.css" />
+  <title>Blackbar</title>
+</head>
+<body>
+  <header class="head">
+    <span class="mark" aria-hidden="true"></span>
+    <span class="wordmark">Blackbar</span>
+  </header>
+
+  <menu class="modes">
+    <li><button data-mode="area"><span class="name">Capture an area</span><kbd>⌥⇧N</kbd></button></li>
+    <li><button data-mode="visible"><span class="name">What's on screen</span><kbd>⌥⇧S</kbd></button></li>
+    <li><button data-mode="fullpage"><span class="name">The whole page</span><kbd>⌥⇧F</kbd></button></li>
+    <li><button data-mode="element"><span class="name">One element</span><kbd>click</kbd></button></li>
+  </menu>
+
+  <button class="fixkeys" id="fixKeys" hidden></button>
+
+  <button class="paste" id="paste" hidden>Open editor to paste an image →</button>
+
+  <p class="note" id="note">Secrets get blacked out before you see the shot.</p>
+
+  <footer class="foot">
+    <span class="chip" id="chip">offline</span>
+    <a href="../editor/welcome.html" target="_blank" class="link">How it works</a>
+  </footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

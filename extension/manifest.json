@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Blackbar — Redact screenshots before you share",
+  "short_name": "Blackbar",
+  "version": "0.1.10",
+  "description": "Capture, auto-detect secrets, and black them out. Everything happens on your device — this extension cannot make network requests.",
+  "minimum_chrome_version": "116",
+
+  "permissions": ["activeTab", "scripting", "storage", "unlimitedStorage"],
+
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+
+  "action": {
+    "default_title": "Blackbar (Alt+Shift+S)",
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+
+  "commands": {
+    "capture-area": {
+      "suggested_key": { "default": "Alt+Shift+N" },
+      "description": "Capture an area"
+    },
+    "capture-visible": {
+      "suggested_key": { "default": "Alt+Shift+S" },
+      "description": "Capture what's on screen"
+    },
+    "capture-fullpage": {
+      "suggested_key": { "default": "Alt+Shift+F" },
+      "description": "Capture the whole page"
+    }
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["src/lib/detectors.js"],
+      "matches": ["<all_urls>"],
+      "use_dynamic_url": true
+    }
+  ],
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'none'; img-src 'self' data: blob:; media-src 'none'; frame-src 'none'; form-action 'none'; base-uri 'none'"
+  }
+}
